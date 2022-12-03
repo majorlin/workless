@@ -131,3 +131,4 @@ dmypy.json
 *.html
 *.xml
 .DS_Store
+temp.jlink
