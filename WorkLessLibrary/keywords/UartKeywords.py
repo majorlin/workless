@@ -34,4 +34,5 @@ class UartKeywords(object):
         self.uart.write(data)
 
     def uart_read(self):
-        return self.uart.read()
+        # read all data in buffer
+        return self.uart.read_all()
