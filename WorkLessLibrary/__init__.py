@@ -20,12 +20,12 @@
 import os
 import sys
 
-from WorkLessLibrary.keywords import CompileKeywords, JLinkKeywords
+from WorkLessLibrary.keywords import CompileKeywords, JLinkKeywords, UartKeywords
 
 __version___ = "0.2.0"
 
 
-class WorkLessLibrary(CompileKeywords, JLinkKeywords):
+class WorkLessLibrary(CompileKeywords, JLinkKeywords, UartKeywords):
     __version__ = __version___
 
     ROBOT_LIBRARY_SCOPE = "GLOBAL"

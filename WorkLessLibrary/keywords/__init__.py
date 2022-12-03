@@ -19,3 +19,4 @@
 ###
 from .CompileKeywords import CompileKeywords
 from .JLinkKeywords import JLinkKeywords
+from .UartKeywords import UartKeywords
