@@ -21,22 +21,18 @@ from WorkLessLibrary.WorkLessUtil import run_cmd
 from robot.api.deco import keyword
 
 class JLinkKeywords(object):
-    def __init__(self, sn=None, por=False, device="YTM32B1ME0", dry_run=False):
-        self.por = por
-        self.sn = sn
-        self.device = device
-        self.dry_run = dry_run
+    def __init__(self):
         pass
 
     @keyword("Download Firmware")
-    def download_srec(self, srec_file):
+    def download_srec(self, srec_file, sn=None, por=False, device="YTM32B1ME0", dry_run=False):
         # create temp file
         script_file = "temp.jlink"
         with open(script_file, "w") as f:
-            if self.por:
+            if por:
                 f.write("power on\n")
             f.write("loadfile {}\n".format(srec_file))
-            if self.por:
+            if por:
                 f.write("power off\n")
                 f.write("sleep 500\n")
                 f.write("power on\n")
@@ -45,10 +41,10 @@ class JLinkKeywords(object):
                 f.write("g\n")
             f.write("qc\n")
         # run script
-        cmd = "JLinkExe -device {} -if swd -speed 4000 -autoconnect 1 -CommanderScript {}".format(self.device, script_file)
-        if self.sn:
-            cmd += " -SelectEmuBySN {}".format(self.sn)
-        return run_cmd(cmd, dry_run=self.dry_run)
+        cmd = "JLinkExe -device {} -if swd -speed 4000 -autoconnect 1 -CommanderScript {}".format(device, script_file)
+        if sn:
+            cmd += " -SelectEmuBySN {}".format(sn)
+        return run_cmd(cmd, dry_run=dry_run)
 
     @keyword("Read Memory")
     def read_memory(self, addr, size):
