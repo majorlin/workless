@@ -17,12 +17,15 @@
 # ----------	-------------	----------------------------------------------------------
 # ******************************************************************************
 ###
-import os
-class JLinkLibrary:
-    def __init__(self, sn=None, por=False, device="YTM32B1ME0"):
+from WorkLessLibrary.WorkLessUtil import run_cmd
+from robot.api.deco import keyword
+
+class JLinkKeywords(object):
+    def __init__(self, sn=None, por=False, device="YTM32B1ME0", dry_run=False):
         self.por = por
         self.sn = sn
         self.device = device
+        self.dry_run = dry_run
         pass
 
     def download_srec(self, srec_file):
@@ -44,7 +47,7 @@ class JLinkLibrary:
         cmd = "JLinkExe -device {} -if swd -speed 4000 -autoconnect 1 -CommanderScript {}".format(self.device, script_file)
         if self.sn:
             cmd += " -SelectEmuBySN {}".format(self.sn)
-        os.system(cmd)
+        return run_cmd(cmd, dry_run=self.dry_run)
 
     def read_memory(self, addr, size):
         # create temp file
@@ -57,7 +60,7 @@ class JLinkLibrary:
         cmd = "JLinkExe -device {} -if swd -speed 4000 -autoconnect 1 -CommanderScript {}".format(self.device, script_file)
         if self.sn:
             cmd += " -SelectEmuBySN {}".format(self.sn)
-        os.system(cmd)
+        run_cmd(cmd, dry_run=self.dry_run)
 
     def get_library(self):
         return "JLinkLibrary"
