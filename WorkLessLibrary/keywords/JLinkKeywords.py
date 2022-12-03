@@ -28,6 +28,7 @@ class JLinkKeywords(object):
         self.dry_run = dry_run
         pass
 
+    @keyword("Download Firmware")
     def download_srec(self, srec_file):
         # create temp file
         script_file = "temp.jlink"
@@ -49,6 +50,7 @@ class JLinkKeywords(object):
             cmd += " -SelectEmuBySN {}".format(self.sn)
         return run_cmd(cmd, dry_run=self.dry_run)
 
+    @keyword("Read Memory")
     def read_memory(self, addr, size):
         # create temp file
         script_file = "temp.jlink"
