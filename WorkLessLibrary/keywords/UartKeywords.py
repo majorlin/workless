@@ -35,4 +35,6 @@ class UartKeywords(object):
 
     def uart_read(self):
         # read all data in buffer
-        return self.uart.read_all()
+        echo = self.uart.read_all().decode("utf-8", "ignore")
+        print(echo)
+        return echo
